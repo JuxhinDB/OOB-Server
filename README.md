@@ -37,6 +37,20 @@ foo@vm13407021391238:~$ sudo tail -f /var/log/named/named.log
 25-Oct-2018 13:22:23.030 queries: info: client @0x7f25082bef80 255.255.255.255.60#20153 (foo.bar): query: foo.bar IN A -E(0) (127.127.127.127)
 ```
 
+Or for something more specific:
+
+###### Client
+
+`dig 12321931-xxe.gbejna.bid`
+
+###### Server
+
+```
+25-Oct-2018 14:43:28.202 queries: info: client @0x7f24f8001250 195.158.104.28#58760 (12321931-xxe.foo.bar): query: 12321931-xxe.foo.bar IN A -E(0) (91.239.26.239)
+25-Oct-2018 14:43:28.297 queries: info: client @0x7f24f8001250 195.158.104.28#58760 (12321931-xxe.foo.bar): query: 12321931-xxe.foo.bar IN A -E(0) (91.239.26.239)
+25-Oct-2018 14:43:28.390 queries: info: client @0x7f24f8001250 195.158.104.28#58760 (12321931-xxe.foo.bar): query: 12321931-xxe.foo.bar IN A -E(0) (91.239.26.239)
+```
+
 ## Why
 
 This is very useful when wanting to test for some very hairy vulnerabilities
