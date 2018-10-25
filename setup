@@ -8,7 +8,7 @@
 # Version: 1.0.0
 #
 # Usage: setup DOMAIN_NAME
-#        setup gbejna.bid
+#        setup foo.bid
 #        setup -h
 #        setup --help
 
@@ -27,7 +27,7 @@ source "$(dirname "$0")/inc/color.sh"
 function usage_general {
   echo -e "
 Usage: ${0#\.\/} DOMAIN_NAME
-       ${0#\.\/} gbejna.bid
+       ${0#\.\/} foo.bid
        ${0#\.\/} -h
        ${0#\.\/} --help
 

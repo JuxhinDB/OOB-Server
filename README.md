@@ -13,7 +13,7 @@ to have the domain point to your custom domain for example:
 
 ```
 Usage: setup DOMAIN_NAME
-       setup gbejna.bid
+       setup foo.bar
        setup -h
        setup --help
 
@@ -25,16 +25,16 @@ You can then monitor your Bind9 traffic like so:
 
 ```
 foo@vm13407021391238:~$ sudo tail -f /var/log/named/named.log
-25-Oct-2018 13:22:18.015 queries: info: client @0x7f25082bef80 255.255.255.255.16360047 (gbejna.bid): query: gbejna.bid IN A -E(0) (127.127.127.127)
-25-Oct-2018 13:22:20.352 queries: info: client @0x7f25082bef80 255.255.255.255.88#61503 (gbejna.bid): query: gbejna.bid IN A -E(0) (127.127.127.127)
-25-Oct-2018 13:22:20.654 queries: info: client @0x7f25082bef80 255.255.255.255.60#18303 (gbejna.bid): query: gbejna.bid IN A -E(0) (127.127.127.127)
-25-Oct-2018 13:22:20.903 queries: info: client @0x7f25082bef80 255.255.255.255.60#36200 (gbejna.bid): query: gbejna.bid IN A -E(0) (127.127.127.127)
-25-Oct-2018 13:22:21.371 queries: info: client @0x7f25082bef80 255.255.255.255.60#18303 (gbejna.bid): query: gbejna.bid IN A -E(0) (127.127.127.127)
-25-Oct-2018 13:22:21.617 queries: info: client @0x7f25082bef80 255.255.255.255.60#60065 (gbejna.bid): query: gbejna.bid IN A -E(0) (127.127.127.127)
-25-Oct-2018 13:22:22.080 queries: info: client @0x7f25082bef80 255.255.255.255.60#51886 (gbejna.bid): query: gbejna.bid IN A -E(0) (127.127.127.127)
-25-Oct-2018 13:22:22.335 queries: info: client @0x7f25082bef80 255.255.255.255.60#51410 (gbejna.bid): query: gbejna.bid IN A -E(0) (127.127.127.127)
-25-Oct-2018 13:22:22.778 queries: info: client @0x7f25082bef80 255.255.255.255.60#61740 (gbejna.bid): query: gbejna.bid IN A -E(0) (127.127.127.127)
-25-Oct-2018 13:22:23.030 queries: info: client @0x7f25082bef80 255.255.255.255.60#20153 (gbejna.bid): query: gbejna.bid IN A -E(0) (127.127.127.127)
+25-Oct-2018 13:22:18.015 queries: info: client @0x7f25082bef80 255.255.255.255.16360047 (foo.bar): query: foo.bar IN A -E(0) (127.127.127.127)
+25-Oct-2018 13:22:20.352 queries: info: client @0x7f25082bef80 255.255.255.255.88#61503 (foo.bar): query: foo.bar IN A -E(0) (127.127.127.127)
+25-Oct-2018 13:22:20.654 queries: info: client @0x7f25082bef80 255.255.255.255.60#18303 (foo.bar): query: foo.bar IN A -E(0) (127.127.127.127)
+25-Oct-2018 13:22:20.903 queries: info: client @0x7f25082bef80 255.255.255.255.60#36200 (foo.bar): query: foo.bar IN A -E(0) (127.127.127.127)
+25-Oct-2018 13:22:21.371 queries: info: client @0x7f25082bef80 255.255.255.255.60#18303 (foo.bar): query: foo.bar IN A -E(0) (127.127.127.127)
+25-Oct-2018 13:22:21.617 queries: info: client @0x7f25082bef80 255.255.255.255.60#60065 (foo.bar): query: foo.bar IN A -E(0) (127.127.127.127)
+25-Oct-2018 13:22:22.080 queries: info: client @0x7f25082bef80 255.255.255.255.60#51886 (foo.bar): query: foo.bar IN A -E(0) (127.127.127.127)
+25-Oct-2018 13:22:22.335 queries: info: client @0x7f25082bef80 255.255.255.255.60#51410 (foo.bar): query: foo.bar IN A -E(0) (127.127.127.127)
+25-Oct-2018 13:22:22.778 queries: info: client @0x7f25082bef80 255.255.255.255.60#61740 (foo.bar): query: foo.bar IN A -E(0) (127.127.127.127)
+25-Oct-2018 13:22:23.030 queries: info: client @0x7f25082bef80 255.255.255.255.60#20153 (foo.bar): query: foo.bar IN A -E(0) (127.127.127.127)
 ```
 
 ## Why
