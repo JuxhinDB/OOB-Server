@@ -12,8 +12,8 @@ to have the domain point to your custom domain for example:
 ## Usage
 
 ```
-Usage: setup DOMAIN_NAME
-       setup foo.bar
+Usage: setup DOMAIN_NAME IP
+       setup foo.bar 1.1.1.1
        setup -h
        setup --help
 
