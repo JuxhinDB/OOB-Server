@@ -1,0 +1,104 @@
+# Bind9 Basic Setup
+# 
+# Description: The following shell script sets up Bind9 with basic configuration
+#              primarily having the server act as an open DNS resolver for certain
+#              vulnerabilities (i.e. DNSRCE).
+#
+# Author: Juxhin Dyrmishi Brigjaj
+# Version: 1.0.0
+#
+# Usage: setup DOMAIN_NAME
+#        setup gbejna.bid
+#        setup -h
+#        setup --help
+
+# Set initial placeholder value for the user domain
+DOMAIN_NAME=""
+
+# Config for /etc/bind/named.conf.log
+readonly BIND_NAMED_CONF_LOG="
+"
+
+# Load utility shells
+source "$(dirname "$0")/inc/log.sh"
+source "$(dirname "$0")/inc/utils.sh"
+source "$(dirname "$0")/inc/color.sh"
+
+function usage_general {
+  echo -e "
+Usage: ${0#\.\/} DOMAIN_NAME
+       ${0#\.\/} gbejna.bid
+       ${0#\.\/} -h
+       ${0#\.\/} --help
+
+Provision Bind9 for specified domain name to act as an open DNS resolver.
+
+Options:
+  -h, --help                           Print this help message
+"
+  exit
+}
+
+# Update APT repository and install Bind9 package
+function install_dependencies {
+    log "IN" "Update APT and installing Bind9 package"  
+    apt update
+    apt install bind9 -y
+}
+
+# Setup any paths that are required, such as log path
+function setup_paths {
+    log "IN" "Setting up paths and permissions for Bind9 logs"
+    mkdir -p /var/log/named
+    chown -R bind:root /var/log/named
+    chmod -R 775 /var/log/named
+}
+
+# Update all Bind9 (and other) configs to setup
+function update_configs {
+    log "IN" "Updating all Bind9 configurations"
+    local -r BASE_BIND_PATH="/etc/bind"
+
+    log "DB" "Adding db.local to ${BASE_BIND_PATH}/db.local"
+    verify_file_exists "${BASE_BIND_PATH}/db.local"
+    truncate -s 0 ${BASE_BIND_PATH}/db.local
+    awk -v domain_name="${DOMAIN_NAME}" '{ gsub("DOMAIN_NAME", domain_name); print $0 }' "${PWD}/_config/db.local" > "${BASE_BIND_PATH}/db.local"
+
+    log "DB" "Adding named.conf.options to ${BASE_BIND_PATH}/named.conf.options"
+    verify_file_exists "${BASE_BIND_PATH}/named.conf.options"
+    truncate -s 0 "${BASE_BIND_PATH}/named.conf.options"
+    cat "${PWD}/_config/named.conf.options" > "${BASE_BIND_PATH}/named.conf.options"
+
+    log "DB" "Creating named.conf.log and including it in named.conf"
+    touch "${BASE_BIND_PATH}/named.conf.log"
+    cat "${PWD}/_config/named.conf.log" > "${BASE_BIND_PATH}/named.conf.log"
+    echo "include \"/etc/bind/named.conf.log\";" >> "${BASE_BIND_PATH}/named.conf"
+
+    log "DB" "Setting up lograte for bind"
+    touch "/etc/logrotate.d/bind"
+    cat "${PWD}/_config/logrotate" > "/etc/logrotate.d/bind"
+
+    log "IN" "Reloading logrotate to take effect on new Bind9 logs"
+    logrotate -d "/etc/logrotate.d/bind"
+}
+
+function main {
+    install_dependencies
+    setup_paths
+    update_configs
+}
+
+# Preflight checks
+
+# Show usage if no arguments are passed
+if [ "$1" = "" ]; then
+    usage_general
+fi
+
+case $1 in
+    -h | --help ) usage_general
+esac
+
+DOMAIN_NAME="${1}"
+
+main

@@ -1,0 +1,12 @@
+/var/log/named/named.log {
+  daily
+  missingok
+  rotate 7
+  compress
+  delaycompress
+  notifempty
+  create 644 bind bind
+  postrotate
+    /usr/sbin/invoke-rc.d bind9 reload > /dev/null
+  endscript
+}

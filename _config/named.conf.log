@@ -1,0 +1,15 @@
+logging {
+  channel bind_log {
+    file "/var/log/named/named.log" versions 3 size 5m;
+    severity info;
+    print-category yes;
+    print-severity yes;
+    print-time yes;
+  };
+  category default { bind_log; };
+  category update { bind_log; };
+  category update-security { bind_log; };
+  category security { bind_log; };
+  category queries { bind_log; };
+  category lame-servers { null; };
+};
