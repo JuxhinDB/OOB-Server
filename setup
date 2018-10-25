@@ -7,13 +7,14 @@
 # Author: Juxhin Dyrmishi Brigjaj
 # Version: 1.0.0
 #
-# Usage: setup DOMAIN_NAME
-#        setup foo.bid
+# Usage: setup DOMAIN_NAME DOMAIN_IP
+#        setup foo.bid 1.1.1.1
 #        setup -h
 #        setup --help
 
 # Set initial placeholder value for the user domain
 DOMAIN_NAME=""
+DOMAIN_IP=""
 
 # Config for /etc/bind/named.conf.log
 readonly BIND_NAMED_CONF_LOG="
@@ -26,8 +27,8 @@ source "$(dirname "$0")/inc/color.sh"
 
 function usage_general {
   echo -e "
-Usage: ${0#\.\/} DOMAIN_NAME
-       ${0#\.\/} foo.bid
+Usage: ${0#\.\/} DOMAIN_NAME DOMAIN_IP
+       ${0#\.\/} foo.bid 1.1.1.1
        ${0#\.\/} -h
        ${0#\.\/} --help
 
@@ -62,7 +63,7 @@ function update_configs {
     log "DB" "Adding db.local to ${BASE_BIND_PATH}/db.local"
     verify_file_exists "${BASE_BIND_PATH}/db.local"
     truncate -s 0 ${BASE_BIND_PATH}/db.local
-    awk -v domain_name="${DOMAIN_NAME}" '{ gsub("DOMAIN_NAME", domain_name); print $0 }' "${PWD}/_config/db.local" > "${BASE_BIND_PATH}/db.local"
+    awk -v domain_name="${DOMAIN_NAME}" -v domain_ip="${DOMAIN_IP}" '{ gsub("DOMAIN_NAME", domain_name); gsub("DOMAIN_IP", domain_ip); print $0 }' "${PWD}/_config/db.local" > "${BASE_BIND_PATH}/db.local"
 
     log "DB" "Adding named.conf.options to ${BASE_BIND_PATH}/named.conf.options"
     verify_file_exists "${BASE_BIND_PATH}/named.conf.options"
@@ -100,5 +101,6 @@ case $1 in
 esac
 
 DOMAIN_NAME="${1}"
+DOMAIN_IP="${2}"
 
 main

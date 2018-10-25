@@ -1,4 +1,4 @@
-\$TTL    120
+$TTL    120
 @       IN      SOA     DOMAIN_NAME. root.DOMAIN_NAME. (
                               2         ; Serial
                          604800         ; Refresh
@@ -6,7 +6,9 @@
                         2419200         ; Expire
                          604800 )       ; Negative Cache TTL
 ;
-@                IN      A       91.239.26.239
+ns1              IN      A       DOMAIN_IP
+ns2              IN      A       DOMAIN_IP
+@                IN      A       DOMAIN_IP
 *                IN      CNAME   DOMAIN_NAME
 @                IN      NS      ns1.DOMAIN_NAME.
 @                IN      NS      ns2.DOMAIN_NAME.
