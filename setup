@@ -1,5 +1,5 @@
 # Bind9 Basic Setup
-# 
+#
 # Description: The following shell script sets up Bind9 with basic configuration
 #              primarily having the server act as an open DNS resolver for certain
 #              vulnerabilities (i.e. DNSRCE).
@@ -42,9 +42,9 @@ Options:
 
 # Update APT repository and install Bind9 package
 function install_dependencies {
-    log "IN" "Update APT and installing Bind9 package"  
+    log "IN" "Update APT and installing Bind9 package"
     apt update
-    apt install bind9 -y
+    apt install bind9 logrotate -y
 }
 
 # Setup any paths that are required, such as log path
