@@ -72,7 +72,7 @@ function update_configs {
           type master;
           file \"/etc/bind/db.local\";
     };
-    " >> "${BASE_BIND_PATH}/db.local/named.conf.default-zones"
+    " >> "${BASE_BIND_PATH}/named.conf.default-zones"
 
 
     log "DB" "Adding named.conf.options to ${BASE_BIND_PATH}/named.conf.options"
