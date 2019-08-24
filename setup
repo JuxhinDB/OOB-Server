@@ -68,10 +68,10 @@ function update_configs {
 
     # Add the domain zone into the list of zones to have permission to answer to queries
     echo "
-    zone \"${DOMAIN_NAME}\" {
-          type master;
-          file \"/etc/bind/db.local\";
-    };
+zone \"${DOMAIN_NAME}\" {
+      type master;
+      file \"/etc/bind/db.local\";
+};
     " >> "${BASE_BIND_PATH}/named.conf.default-zones"
 
 
