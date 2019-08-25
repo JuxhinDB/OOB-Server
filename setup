@@ -89,8 +89,14 @@ zone \"${DOMAIN_NAME}\" {
     touch "/etc/logrotate.d/bind"
     cat "${PWD}/_config/logrotate" > "/etc/logrotate.d/bind"
 
+    log "DB" "Overwrite Bind9 default file"
+    cat "${PWD}/_config/bind9" > "/etc/default/bind9"
+
     log "IN" "Reloading logrotate to take effect on new Bind9 logs"
     logrotate -d "/etc/logrotate.d/bind"
+
+    log "IN" "Restarting Bind9 service"
+    systemctl restart bind9
 }
 
 function main {
